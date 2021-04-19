@@ -8,8 +8,7 @@
 // })
 
 
-const secretNumber = Math.trunc(Math.random()*20 + 1)
-document.querySelector('.number').textContent = secretNumber
+let secretNumber = Math.trunc(Math.random()*20 + 1)
 let guess = ''
 let score = document.querySelector('.score').textContent
 let highScore = document.querySelector('.highscore').textContent
@@ -28,16 +27,32 @@ document.querySelector('.check').addEventListener('click', function(){
       score--
       document.querySelector('.score').textContent = score
     }
+    //guess too low
   } else if(guess < secretNumber){
     document.querySelector('.message').textContent = 'too low'
     if(score > 0){
       score--
       document.querySelector('.score').textContent = score
     }
+    //when player wins
   } else if(guess === secretNumber){
     document.querySelector('.message').textContent = "that's a win"
+    document.querySelector('.number').textContent = secretNumber
+    document.querySelector('body').style.backgroundColor = 'green'
+    document.querySelector('.number').style.width = '30rem'
     if(score > highScore){
       document.querySelector('.highscore').textContent = score
     }
   }
+})
+//reset all conditions
+document.querySelector('.again').addEventListener('click', function(){
+  score = 20
+  document.querySelector('.message').textContent = "Start guessing..."
+  document.querySelector('.number').textContent = '?'
+  document.querySelector('body').style.backgroundColor = '#222'
+  document.querySelector('.number').style.width = '15rem'
+  document.querySelector('.guess').value = ''
+  document.querySelector('.score').textContent = score
+  secretNumber = Math.trunc(Math.random()*20 + 1)
 })
